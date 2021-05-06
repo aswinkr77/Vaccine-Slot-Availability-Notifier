@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" class="w-full h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--Tailwind CSS CDN-->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="./public/style.css">
+</head>
+<body class="w-full h-full">
+
+    <div id="modal" class="hidden flex w-full h-full fixed top-0 left-0 w-full h-full">
+        <div class="modal-background w-full h-full absolute flex items-center">
+          <div id="modal-menu-container" class="modal-menu-contain relative w-6/12 h-auto rounded-lg fixed">
+            <div id="close" class="close absolute cursor-pointer block">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="modal-menu flex flex-col items-center justify-center items-center p-8">
+                <h1 class="text-3xl pb-5">How to Use?</h1>
+                <p>
+                    <ul class="text-lg list-disc">
+                        <li>
+                            Firstly, you need to authorize CallMeBot in Telegram, only then you will receive messages. If you haven't authorized already,
+                            <a class="modal-a" href="https://t.me/CallMeBot_txtbot" target="_blank">Click Here</a> and then send <code>/start</code> to authorize the bot.
+                        </li>
+                        <li>
+                            After clicking on start, the web app stops only after a vacant slot is obtained or unless you click on stop button.
+                        </li>
+                        <li>
+                            Never close the browser, or the tab where the site is opened, it has to be always run on the background.
+                        </li>
+                        <li>
+                            To report any bugs or to add any new features visit Github Repository of this <a class="modal-a" href="" target="_blank">Project</a>
+                        </li>
+                        <li>
+                            This is an experimental project, and it may not work at sometimes
+                        </li>
+                    </ul>
+                </p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="relative w-full h-full">
+
+        <div id="info-main" class="relative">
+            <div id="info" class="absolute flex justify-center items-center cursor-pointer text-white">
+                <p class="">i</p>
+            </div>
+        </div>
+
+        <div class="container relative w-6/12 flex justify-center flex-wrap">
+            <h1 class="text-3xl p-8">Vaccine Slot Availability Notifier</h1>
+            <div class="tg relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">Telegram Username</p><br>
+                <input type="text" id="username" class="w-8/12" placeholder="CallMeBot_txtbot">
+            </div>
+        
+            <div class="state relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">State</p>
+                <div class="w-8/12 state-select relative">
+                    <select name="state" id="states" class="w-full"></select>
+                </div>
+            </div>
+        
+            <div class="district relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">District</p>
+                <div class="w-8/12 state-select relative">
+                    <select name="district" id="districts" class="w-full"></select>
+                </div>
+            </div>
+
+            <div class="ages relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">Age<p>
+                <div class="w-8/12 flex justify-around">
+                    <div>
+                        <input type="radio" name="age" value="0" checked="checked"><span class="pl-1">Any</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="age" value="18"><span class="pl-1">18-44</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="age" value="45"><span class="pl-1">45+</span>
+                    </div>
+                </div>
+            </div>
+         
+            <div class="dates relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">Date</p>
+                <div class="date-select w-8/12 flex justify-center">
+                    <input type="date" id="date" name="date">
+                </div>
+            </div>
+
+            <div class="buttons relative w-8/12 p-4 flex justify-around flex-wrap pb-10">
+                <button id="search" class="">Start</button>
+                <button id="stop" class="" disabled>Stop</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="me relative text-center flex justify-center">
+        <p>Website Designed & Developed by <a href="">Aswin K R</a> &#129505</p>
+    </div>
+
+    <!--Custom Script-->
+    <script src="/src/index.js"></script>
+   
+</body>
+</html>

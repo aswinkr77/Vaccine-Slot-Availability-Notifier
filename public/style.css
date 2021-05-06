@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
+
+:root {
+    --colors: #3870ff;
+}
+
+* {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+#info-main {
+    height: 40px;
+}
+
+#info {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--colors);
+    border-radius: 50%;
+    font-size: 20px;
+    transition: background-color 0.3s linear;
+}
+
+#info p {
+    font-family: 'Niconne', cursive;
+    font-size: 40px;
+}
+
+#info:hover {
+    background-color: #02dac5;
+}
+
+#modal {
+    z-index: 10000000;
+}
+
+.modal-background {
+    background-color: black;
+    opacity: 0.9;
+}
+
+#modal-menu-container {
+    background-color: #0b2942;
+    margin: auto;
+    color: white;
+}
+
+#close {
+    height: 60px;
+    width: 60px;
+    right: 1%;
+    top: 1%;
+}
+
+#close span {
+    display: block;
+    width: 35px;
+    height: 4px;
+    position: absolute;
+    background-color: #02dac5;
+    border-radius: 3px;
+    top: 48%;
+    left: 23%;
+    transform: translate(-50%, -50%);
+}
+
+#close span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+#close span:nth-child(2) {
+    transform: rotate(135deg);
+}
+
+.modal-a {
+    color: green;
+}
+
+.container {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 6px 0 5px 0 rgb(145, 143, 143, 0.75),
+                0 6px 5px 0 rgb(145, 143, 143, 0.75),
+                -6px 0 5px 0 rgb(145, 143, 143, 0.75),
+                0 -6px 5px 0 rgb(145, 143, 143, 0.75);
+}
+
+input[type=text] {
+    border-bottom: 2px solid var(--colors);
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+.state-select {
+    border: none;
+    border-bottom: 2px solid var(--colors);
+}
+
+select:focus {
+    outline: none;
+}
+
+input[type=date] {
+    border: 2px solid var(--colors);
+}
+
+button {
+    width: 100px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: var(--colors);
+    color: white;
+    transition: background-color 0.3s linear;
+}
+
+button:hover {
+    background-color: #02dac5;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: default;
+}
+
+input[type=date]:disabled {
+    border-color: gray;
+    color: gray;
+}
+
+input[type=text]:disabled {
+    color: gray;
+}
+
+input[type=radio]:disabled + span {
+    color: gray;
+}
+
+.me {
+    height: 50px;
+}
+
+.me a {
+    color: red;
+}
+
+@media(max-width: 768px) {
+    #modal-menu-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        box-shadow: none;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .tg, .state, .district, .ages, .dates, .buttons {
+        width: 100%;
+    }
+
+    button {
+        margin-bottom: 5px;
+    }
+
+    .me {
+        width: 75%;
+        margin: 20px auto;
+    }
+}
+
+@media(max-width: 340px) {
+    .modal-menu h1 {
+        font-size: 1.125rem;
+    }
+
+    .modal-menu ul {
+        font-size: 0.85rem;
+    }
+}
