@@ -11,4 +11,5 @@
 ## This is an experimental project
 You may experience bugs or errors when running the app and feel free to contact me or create a PR
 
-
+## Screenshots
+<img src="images/ss_1.JPG" height="500px">     <img src="images/ss_2.jpg" height="500px">
