@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" class="w-full h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--Tailwind CSS CDN-->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+    <!--Custom CSS-->
+    <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
+
+:root {
+    --colors: #3870ff;
+}
+
+* {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+#info-main {
+    height: 40px;
+}
+
+#info {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--colors);
+    border-radius: 50%;
+    font-size: 20px;
+    transition: background-color 0.3s linear;
+}
+
+#info p {
+    font-family: 'Niconne', cursive;
+    font-size: 40px;
+}
+
+#info:hover {
+    background-color: #02dac5;
+}
+
+#modal {
+    z-index: 10000000;
+}
+
+.modal-background {
+    background-color: black;
+    opacity: 0.9;
+}
+
+#modal-menu-container {
+    background-color: #0b2942;
+    margin: auto;
+    color: white;
+}
+
+#close {
+    height: 60px;
+    width: 60px;
+    right: 1%;
+    top: 1%;
+}
+
+#close span {
+    display: block;
+    width: 35px;
+    height: 4px;
+    position: absolute;
+    background-color: #02dac5;
+    border-radius: 3px;
+    top: 48%;
+    left: 23%;
+    transform: translate(-50%, -50%);
+}
+
+#close span:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+#close span:nth-child(2) {
+    transform: rotate(135deg);
+}
+
+.modal-a {
+    color: green;
+}
+
+.container {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 6px 0 5px 0 rgb(145, 143, 143, 0.75),
+                0 6px 5px 0 rgb(145, 143, 143, 0.75),
+                -6px 0 5px 0 rgb(145, 143, 143, 0.75),
+                0 -6px 5px 0 rgb(145, 143, 143, 0.75);
+}
+
+input[type=text] {
+    border-bottom: 2px solid var(--colors);
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+.state-select {
+    border: none;
+    border-bottom: 2px solid var(--colors);
+}
+
+select:focus {
+    outline: none;
+}
+
+input[type=date] {
+    border: 2px solid var(--colors);
+}
+
+button {
+    width: 100px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: var(--colors);
+    color: white;
+    transition: background-color 0.3s linear;
+}
+
+button:hover {
+    background-color: #02dac5;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: default;
+}
+
+input[type=date]:disabled {
+    border-color: gray;
+    color: gray;
+}
+
+input[type=text]:disabled {
+    color: gray;
+}
+
+input[type=radio]:disabled + span {
+    color: gray;
+}
+
+.me {
+    height: 50px;
+}
+
+.me a {
+    color: red;
+}
+
+@media(max-width: 768px) {
+    #modal-menu-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        box-shadow: none;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .tg, .state, .district, .ages, .dates, .buttons {
+        width: 100%;
+    }
+
+    button {
+        margin-bottom: 5px;
+    }
+
+    .me {
+        width: 75%;
+        margin: 20px auto;
+    }
+}
+
+@media(max-width: 340px) {
+    .modal-menu h1 {
+        font-size: 1.125rem;
+    }
+
+    .modal-menu ul {
+        font-size: 0.85rem;
+    }
+}
+
+    </style>
+</head>
+<body class="w-full h-full">
+
+    <div id="modal" class="hidden flex w-full h-full fixed top-0 left-0 w-full h-full">
+        <div class="modal-background w-full h-full absolute flex items-center">
+          <div id="modal-menu-container" class="modal-menu-contain relative w-6/12 h-auto rounded-lg fixed">
+            <div id="close" class="close absolute cursor-pointer block">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="modal-menu flex flex-col items-center justify-center items-center p-8">
+                <h1 class="text-3xl pb-5">How to Use?</h1>
+                <p>
+                    <ul class="text-lg list-disc">
+                        <li>
+                            Firstly, you need to authorize CallMeBot in Telegram, only then you will receive messages. If you haven't authorized already,
+                            <a class="modal-a" href="https://t.me/CallMeBot_txtbot" target="_blank">Click Here</a> and then send <code>/start</code> to authorize the bot.
+                        </li>
+                        <li>
+                            After clicking on start, the web app stops only after a vacant slot is obtained or unless you click on stop button.
+                        </li>
+                        <li>
+                            Never close the browser, or the tab where the site is opened, it has to be always run on the background.
+                        </li>
+                        <li>
+                            To report any bugs or to add any new features visit Github Repository of this <a class="modal-a" href="" target="_blank">Project</a>
+                        </li>
+                        <li>
+                            This is an experimental project, and it may not work at sometimes
+                        </li>
+                    </ul>
+                </p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="relative w-full h-full">
+
+        <div id="info-main" class="relative">
+            <div id="info" class="absolute flex justify-center items-center cursor-pointer text-white">
+                <p class="">i</p>
+            </div>
+        </div>
+
+        <div class="container relative w-6/12 flex justify-center flex-wrap">
+            <h1 class="text-3xl p-8">Vaccine Slot Availability Notifier</h1>
+            <div class="tg relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">Telegram Username</p><br>
+                <input type="text" id="username" class="w-8/12" placeholder="CallMeBot_txtbot">
+            </div>
+        
+            <div class="state relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">State</p>
+                <div class="w-8/12 state-select relative">
+                    <select name="state" id="states" class="w-full"></select>
+                </div>
+            </div>
+        
+            <div class="district relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">District</p>
+                <div class="w-8/12 state-select relative">
+                    <select name="district" id="districts" class="w-full"></select>
+                </div>
+            </div>
+
+            <div class="ages relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">Age<p>
+                <div class="w-8/12 flex justify-around">
+                    <div>
+                        <input type="radio" name="age" value="0" checked="checked"><span class="pl-1">Any</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="age" value="18"><span class="pl-1">18-44</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="age" value="45"><span class="pl-1">45+</span>
+                    </div>
+                </div>
+            </div>
+         
+            <div class="dates relative w-full p-4 flex justify-center flex-wrap">
+                <p class="w-8/12 text-xs text-left pb-1">Date</p>
+                <div class="date-select w-8/12 flex justify-center">
+                    <input type="date" id="date" name="date">
+                </div>
+            </div>
+
+            <div class="buttons relative w-8/12 p-4 flex justify-around flex-wrap pb-10">
+                <button id="search" class="">Start</button>
+                <button id="stop" class="" disabled>Stop</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="me relative text-center flex justify-center">
+        <p>Website Designed & Developed by <a href="">Aswin K R</a> &#129505</p>
+    </div>
+
+    <!--Custom Script-->
+    <script>
+
+const stateUrl = "https://cdn-api.co-vin.in/api/v2/admin/location/states";
+const selectDistricts = document.getElementById("districts");
+const selectStates = document.getElementById("states");
+const selectAge = document.querySelectorAll("input[name='age']");
+const selectDate = document.getElementById("date");
+const search = document.getElementById("search");
+const stopSearch = document.getElementById("stop");
+const selectUser = document.getElementById("username");
+const arrayValue = [selectStates, selectDistricts, selectDate, search, selectUser];
+
+const today = new Date().toISOString().split("T")[0];
+selectDate.setAttribute("value", today);
+selectDate.setAttribute("min", today);
+
+const maxDay = new Date();
+maxDay.setDate(maxDay.getDate() + 83);
+selectDate.setAttribute("max", maxDay.toISOString().split("T")[0]);
+
+let disData = (url) => {
+    fetch(url)
+    .then(res => res.json())
+        .then(data => {
+            if(data["districts"].length)
+                selectDistricts.options.length = 0;
+
+            for(let i = 0; i < data["districts"].length; ++i)
+            {
+                let optionDistricts = document.createElement("option");
+                optionDistricts.value = data["districts"][i]["district_id"];
+                optionDistricts.innerHTML = data["districts"][i]["district_name"];
+                selectDistricts.appendChild(optionDistricts);
+            }
+        })
+    .catch(err => console.log(err));
+};
+
+let stop = () => {
+    arrayValue.forEach(item => {
+        item.removeAttribute("disabled");
+    });
+    selectAge.forEach(item => {
+        item.removeAttribute("disabled");
+    });
+    stopSearch.setAttribute("disabled", "true");
+}
+
+
+let stateData = (url) => {
+    fetch(url)
+    .then(res => res.json())
+        .then(data => {
+            for(let i = 0; i < data["states"].length; ++i)
+            {
+                let optionStates = document.createElement("option");
+                optionStates.value = data["states"][i]["state_id"];
+                optionStates.innerHTML = data["states"][i]["state_name"];
+                selectStates.appendChild(optionStates);
+            }
+
+            let stateValue = selectStates.value;
+            let districtURL = `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${stateValue}`;
+            disData(districtURL);
+        })
+    .catch(err => console.log(err));
+};
+
+let fetchDistrict, date_today, selectedDate, dateArray, reverseDate, districtValue;
+let vaccineAvail = (url, age, user) => {
+    date_today = new Date().toISOString().split("T")[0];
+    if(date_today > selectDate.value)
+    {
+        districtValue = selectDistricts.value;
+        dateArray = date_today.split("-");
+        reverseDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`;
+        fetchDistrict = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${districtValue}&date=${reverseDate}`;
+        url = fetchDistrict;
+    }
+
+    fetch(url)
+    .then(res => res.json())
+        .then(data => {
+            if(data["sessions"].length > 0)
+            {
+                let tgURL = "1";
+                if(age == 0)
+                    tgURL = `https://api.callmebot.com/text.php?user=@${user}&text=Vaccine+Available+at+${data["sessions"].length}+Locations+in+${data["sessions"][0]["district_name"]}+District+of+${data["sessions"][0]["state_name"]}`;
+                else
+                {
+                    let age_18 = 0, age_45 = 0; 
+                    for(let i = 0; i < data["sessions"].length; ++i)
+                    {
+                        if(data["sessions"]["min_age_limit"] == 18)
+                            ++age_18;
+                        else
+                            ++age_45;
+                    }
+
+                    if(age_18 >= 1 && age == 18)
+                        tgURL = `https://api.callmebot.com/text.php?user=@${user}&text=Vaccine+Available+for+Age+Category+18+and+Above+at+${age_18}+Locations+in+${data["sessions"][0]["district_name"]}+District+of+${data["sessions"][0]["state_name"]}`;
+                    else if(age == 45 && age_45 >= 1)
+                        tgURL = `https://api.callmebot.com/text.php?user=@${user}&text=Vaccine+Available+for+Age+Category+45+and+Above+at+${age_45}+Locations+in+${data["sessions"][0]["district_name"]}+District+of+${data["sessions"][0]["state_name"]}`;
+                }
+
+                if(tgURL != "1")
+                {
+                    fetch(tgURL, {mode: "no-cors"})
+                        .then((res) => {
+                            /*console.log(res);*/
+                        })
+                        .catch((err) => {
+                            /*API not returning Error when TG username is not registered with callmebot*/
+                            /*console.log(err);*/
+                        });
+
+                    stop();
+
+                    alert("Vaccine Slot Available");
+                }
+                else
+                    setTimeout(vaccineAvail, 30*1000, url);
+            }
+            else
+                setTimeout(vaccineAvail, 30*1000, url);
+    })
+    .catch(err => alert(err));
+}
+
+
+selectStates.addEventListener("change", () => {
+    let stateValue = selectStates.value; 
+    let districtURL = `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${stateValue}`;
+    disData(districtURL); 
+});
+
+search.addEventListener("click", () => {
+    const user = selectUser.value;
+    selectedDate = selectDate.value;
+
+    if((user == "") || (selectedDate < today) || (selectedDate > maxDay.toISOString().split("T")[0]))
+    {
+        if(user == "")
+            alert("Username Required");
+        else
+            alert(`Select Date in the range from ${today} to ${maxDay.toISOString().split("T")[0]}`)
+    }
+    else
+    {
+        arrayValue.forEach(item => {
+            item.setAttribute("disabled", "true");
+        });
+        selectAge.forEach(item => {
+            item.setAttribute("disabled", "true");
+        });
+    
+        stopSearch.removeAttribute("disabled");
+    
+        districtValue = selectDistricts.value;
+        dateArray = selectedDate.split("-");
+        reverseDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`;
+        fetchDistrict = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${districtValue}&date=${reverseDate}`;
+        const age = document.querySelector("input[name='age']:checked").value;
+        
+        vaccineAvail(fetchDistrict, age, user);
+    }
+});
+
+document.getElementById("info").addEventListener("click", () => {
+    document.getElementById("modal").style.display = "flex";
+});
+
+document.getElementById("close").addEventListener("click", () => {
+    document.getElementById("modal").style.display = "none";
+})
+
+stopSearch.addEventListener("click", stop);
+stateData(stateUrl);
+
+    </script>
+   
+</body>
+</html>
