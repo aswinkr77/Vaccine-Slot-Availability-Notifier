@@ -3,7 +3,7 @@
   "name": "vaccine-slot-availability-notifier",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/index.html",
   "scripts": {
     "build": "index.html",
     "predeploy": "npm run build",
