@@ -307,7 +307,7 @@ input[type=radio]:disabled + span {
 
             <div class="buttons relative w-8/12 p-4 flex justify-around flex-wrap pb-10">
                 <button id="search" class="">Start</button>
-                <button id="stop" class="" disabled>Stop</button>
+                <button id="stop" class="" disabled="false">Stop</button>
             </div>
 
             <div class="me-in relative text-center hidden justify-center">
@@ -359,6 +359,7 @@ let disData = (url) => {
     .catch(err => console.log(err));
 };
 
+let set1, set2;
 let stop = () => {
     arrayValue.forEach(item => {
         item.removeAttribute("disabled");
@@ -367,8 +368,10 @@ let stop = () => {
         item.removeAttribute("disabled");
     });
     stopSearch.setAttribute("disabled", "true");
-}
 
+    clearTimeout(set1);
+    clearTimeout(set2);
+}
 
 let stateData = (url) => {
     fetch(url)
@@ -401,55 +404,59 @@ let vaccineAvail = (url, age, user) => {
         url = fetchDistrict;
     }
 
-    fetch(url)
-    .then(res => res.json())
-        .then(data => {
-            if(data["sessions"].length > 0)
-            {
-                let tgURL = "1";
-                if(age == 0)
-                    tgURL = `https://api.callmebot.com/text.php?user=@${user}&text=Vaccine+Available+at+${data["sessions"].length}+Locations+in+${data["sessions"][0]["district_name"]}+District+of+${data["sessions"][0]["state_name"]}`;
-                else
+    if(stopSearch.getAttribute("disabled"))
+        stop();
+    else
+    {
+        fetch(url)
+        .then(res => res.json())
+            .then(data => {
+                if(data["sessions"].length > 0)
                 {
-                    let age_18 = 0, age_45 = 0; 
-                    for(let i = 0; i < data["sessions"].length; ++i)
+                    let tgURL = "1";
+                    if(age == 0)
+                        tgURL = `https://api.callmebot.com/text.php?user=@${user}&text=Vaccine+Available+at+${data["sessions"].length}+Locations+in+${data["sessions"][0]["district_name"]}+District+of+${data["sessions"][0]["state_name"]}`;
+                    else
                     {
-                        if(data["sessions"]["min_age_limit"] == 18)
-                            ++age_18;
-                        else
-                            ++age_45;
+                        let age_18 = 0, age_45 = 0; 
+                        for(let i = 0; i < data["sessions"].length; ++i)
+                        {
+                            if(data["sessions"]["min_age_limit"] == 18)
+                                ++age_18;
+                            else
+                                ++age_45;
+                        }
+
+                        if(age_18 >= 1 && age == 18)
+                            tgURL = `https://api.callmebot.com/text.php?user=@${user}&text=Vaccine+Available+for+Age+Category+18+and+Above+at+${age_18}+Locations+in+${data["sessions"][0]["district_name"]}+District+of+${data["sessions"][0]["state_name"]}`;
+                        else if(age == 45 && age_45 >= 1)
+                            tgURL = `https://api.callmebot.com/text.php?user=@${user}&text=Vaccine+Available+for+Age+Category+45+and+Above+at+${age_45}+Locations+in+${data["sessions"][0]["district_name"]}+District+of+${data["sessions"][0]["state_name"]}`;
                     }
 
-                    if(age_18 >= 1 && age == 18)
-                        tgURL = `https://api.callmebot.com/text.php?user=@${user}&text=Vaccine+Available+for+Age+Category+18+and+Above+at+${age_18}+Locations+in+${data["sessions"][0]["district_name"]}+District+of+${data["sessions"][0]["state_name"]}`;
-                    else if(age == 45 && age_45 >= 1)
-                        tgURL = `https://api.callmebot.com/text.php?user=@${user}&text=Vaccine+Available+for+Age+Category+45+and+Above+at+${age_45}+Locations+in+${data["sessions"][0]["district_name"]}+District+of+${data["sessions"][0]["state_name"]}`;
-                }
+                    if(tgURL != "1")
+                    {
+                        fetch(tgURL, {mode: "no-cors"})
+                            .then((res) => {
+                                /*console.log(res);*/
+                            })
+                            .catch((err) => {
+                                /*API not returning Error when TG username is not registered with callmebot*/
+                                /*console.log(err);*/
+                            });
 
-                if(tgURL != "1")
-                {
-                    fetch(tgURL, {mode: "no-cors"})
-                        .then((res) => {
-                            /*console.log(res);*/
-                        })
-                        .catch((err) => {
-                            /*API not returning Error when TG username is not registered with callmebot*/
-                            /*console.log(err);*/
-                        });
+                        stop();
 
-                    stop();
-
-                    alert("Vaccine Slot Available");
+                        alert("Vaccine Slot Available");
+                    }
+                    else
+                        setTimeout(vaccineAvail, 30*1000, url, age, user);
                 }
                 else
-                    setTimeout(vaccineAvail, 30*1000, url);
-            }
-            else
-                setTimeout(vaccineAvail, 30*1000, url);
-    })
-    .catch(err => alert(err));
+                    setTimeout(vaccineAvail, 30*1000, url, age, user);
+            })
+        .catch(err => alert(err));
+    }
 }
-
 
 selectStates.addEventListener("change", () => {
     let stateValue = selectStates.value; 
