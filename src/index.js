@@ -117,10 +117,10 @@ let vaccineAvail = (url, age, user) => {
                     alert("Vaccine Slot Available");
                 }
                 else
-                    setTimeout(vaccineAvail, 30*1000, url);
+                    setTimeout(vaccineAvail, 30*1000, url, age, user);
             }
             else
-                setTimeout(vaccineAvail, 30*1000, url);
+                setTimeout(vaccineAvail, 30*1000, url, age, user);
     })
     .catch(err => alert(err));
 }
