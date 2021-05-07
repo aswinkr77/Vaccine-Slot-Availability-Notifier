@@ -191,9 +191,18 @@ input[type=radio]:disabled + span {
         margin-bottom: 5px;
     }
 
+    .me-in {
+        display: flex;
+        width: 80%;
+        padding-bottom: 10px;
+    }
+
+    .me-in a {
+        color: red;
+    }
+
     .me {
-        width: 75%;
-        margin: 20px auto;
+        display: none;
     }
 }
 
@@ -299,6 +308,10 @@ input[type=radio]:disabled + span {
             <div class="buttons relative w-8/12 p-4 flex justify-around flex-wrap pb-10">
                 <button id="search" class="">Start</button>
                 <button id="stop" class="" disabled>Stop</button>
+            </div>
+
+            <div class="me-in relative text-center hidden justify-center">
+                <p>Website Designed & Developed by <a href="https://www.instagram.com/__ash_things__/">Aswin K R</a> &#129505</p>
             </div>
         </div>
     </div>

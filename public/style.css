@@ -177,9 +177,18 @@ input[type=radio]:disabled + span {
         margin-bottom: 5px;
     }
 
+    .me-in {
+        display: flex;
+        width: 80%;
+        padding-bottom: 10px;
+    }
+
+    .me-in a {
+        color: red;
+    }
+
     .me {
-        width: 75%;
-        margin: 20px auto;
+        display: none;
     }
 }
 
