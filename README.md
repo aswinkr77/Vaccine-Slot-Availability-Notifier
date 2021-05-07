@@ -1,6 +1,6 @@
 # Vaccine-Slot-Availability-Notifier
 
-- This Web App continuosuly checks for a vaccine slot in a particular district, and if any slot is available it will send Telegram message to the given Telegram ID.
+- This Web App continuously checks for a vaccine slot in a particular district, and if any slot is available it will send a Telegram message to the given Telegram ID.
 - Web App makes use of the Cowin Web API to fetch slot availability, for more info <b>[click here](https://apisetu.gov.in/public/marketplace/api/cowin)</b>
 
 ## How to Use the App
